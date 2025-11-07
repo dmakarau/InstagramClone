@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CompleteSighUpView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(AuthManager.self) private var authManager
     @Environment(RegistrationViewModel.self) private var viewModel
 
     var body: some View {
@@ -28,7 +29,7 @@ struct CompleteSighUpView: View {
 
 
             Button {
-                Task { try await viewModel.createUser() }
+                Task { await viewModel.createUser(with: authManager) }
             } label: {
                 Text("Complete Sign Up")
                     .font(.subheadline)

@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var viewModel = ContentViewModel()
+    @Environment(AuthManager.self) private var authManager
     var body: some View {
-        if viewModel.userSession == nil {
+        Group {
+            if authManager.userSession == nil {
                 LoginView()
-        } else if let currentUser = viewModel.currentUser {
-                MainTabView(user: currentUser)
+            } else {
+                Text("Show main interface here")
+            }
         }
     }
 }

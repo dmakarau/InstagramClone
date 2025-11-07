@@ -18,10 +18,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct InstagramCloneTutorialApp: App {
+    @State private var authManager = AuthManager(service: AuthService())
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(authManager)
         }
     }
 }

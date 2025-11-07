@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
+    @Environment(AuthManager.self) private var authManager
     @State var loginViewModel = LoginViewModel()
     @State var registrationViewModel = RegistrationViewModel()
     var body: some View {
@@ -46,7 +47,7 @@ struct LoginView: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 
                 Button {
-                    Task { try await loginViewModel.login() }
+                    Task { await loginViewModel.login(with: authManager) }
                 } label: {
                     Text("Login")
                         .font(.subheadline)
