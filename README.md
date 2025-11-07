@@ -5,31 +5,29 @@ A comprehensive iOS Instagram clone built with SwiftUI. This project explores mo
 ## Technologies & Frameworks
 
 <div align="center">
-  <table>
+  <table width="100%" style="width: 100%;">
     <tr>
-      <td align="center">
+      <td align="center" width="16.66%">
         <img src="https://img.shields.io/badge/SwiftUI-000000?style=for-the-badge&logo=swift&logoColor=white" alt="SwiftUI">
         <br><b>SwiftUI</b>
       </td>
-      <td align="center">
+      <td align="center" width="16.66%">
         <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase">
         <br><b>Firebase</b>
       </td>
-      <td align="center">
+      <td align="center" width="16.66%">
         <img src="https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white" alt="iOS">
         <br><b>iOS 17+</b>
       </td>
-    </tr>
-    <tr>
-      <td align="center">
+      <td align="center" width="16.66%">
         <img src="https://img.shields.io/badge/Swift-FA7343?style=for-the-badge&logo=swift&logoColor=white" alt="Swift">
         <br><b>Swift 5.9+</b>
       </td>
-      <td align="center">
+      <td align="center" width="16.66%">
         <img src="https://img.shields.io/badge/Xcode-147EFB?style=for-the-badge&logo=xcode&logoColor=white" alt="Xcode">
         <br><b>Xcode 16+</b>
       </td>
-      <td align="center">
+      <td align="center" width="16.66%">
         <img src="https://img.shields.io/badge/MVVM-4CAF50?style=for-the-badge&logo=architecture&logoColor=white" alt="MVVM">
         <br><b>MVVM</b>
       </td>
