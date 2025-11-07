@@ -23,6 +23,7 @@ extension ProfileViewModel {
         Task {
             try await UserService.follow(uid: user.id)
             user.isFollowed = true
+            try await NotificationManager.shared.uploadFollowNotification(to: user.id)
         }
     }
     
@@ -30,6 +31,7 @@ extension ProfileViewModel {
         Task {
             try await UserService.unfollow(uid: user.id)
             user.isFollowed = false
+            await NotificationManager.shared.deleteFollowNotification(notificationOwner: user.id)
         }
     }
     
