@@ -34,4 +34,12 @@ class NotificationManager {
             print("DEBUG: Failed to delete like notification with error \(error.localizedDescription)")
         }
     }
+    
+    func deleteFollowNotification(notificationOwner: String) async {
+        do {
+            try await service.deleteNotification(toUid: notificationOwner, type: .follow)
+        } catch {
+            print("DEBUG: Failed to delete follow notification with error \(error.localizedDescription)")
+        }
+    }
 }

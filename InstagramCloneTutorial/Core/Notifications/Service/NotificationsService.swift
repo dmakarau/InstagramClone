@@ -15,7 +15,9 @@ class NotificationsService {
         guard let currentUid = Auth.auth().currentUser?.uid else { return [] }
         
         let snapshot = try await FirebaseConstants
-            .UserNotificationCollection(uid: currentUid).getDocuments()
+            .UserNotificationCollection(uid: currentUid)
+            .order(by: "timestamp", descending: true)
+            .getDocuments()
         
         return snapshot.documents.compactMap({ try? $0.data(as: IGNotification.self)})
     }
@@ -54,12 +56,20 @@ class NotificationsService {
 
         let notifications = snapshot.documents.compactMap({ try? $0.data(as: IGNotification.self)})
         let filteredByType = notifications.filter({ $0.type == type })
+        
+        if type == .follow {
+            for notification in filteredByType {
+                    try await FirebaseConstants
+                        .UserNotificationCollection(uid: uid)
+                        .document(notification.id).delete()
+            }
+        } else {
+            guard let notificationToDelete = filteredByType.first(where: {$0.postId == post?.id}) else {
+                return
+            }
 
-        guard let notificationToDelete = filteredByType.first(where: {$0.postId == post?.id}) else {
-            return
+            try await FirebaseConstants.UserNotificationCollection(uid: uid)
+                .document(notificationToDelete.id).delete()
         }
-
-        try await FirebaseConstants.UserNotificationCollection(uid: uid)
-            .document(notificationToDelete.id).delete()
     }
 }

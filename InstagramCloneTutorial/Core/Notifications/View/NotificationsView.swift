@@ -18,6 +18,9 @@ struct NotificationsView: View {
                     }
                 }
             }
+            .refreshable {
+                Task { await viewModel.fetchNotifications() }
+            }
             .navigationDestination(for: User.self, destination: { user in
                 ProfileView(user: user)
             })
