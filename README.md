@@ -4,35 +4,21 @@ A comprehensive iOS Instagram clone built with SwiftUI. This project explores mo
 
 ## Technologies & Frameworks
 
-<div align="center">
-  <table width="100%" style="width: 100%;">
-    <tr>
-      <td align="center" width="16.66%">
-        <img src="https://img.shields.io/badge/SwiftUI-000000?style=for-the-badge&logo=swift&logoColor=white" alt="SwiftUI">
-        <br><b>SwiftUI</b>
-      </td>
-      <td align="center" width="16.66%">
-        <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase">
-        <br><b>Firebase</b>
-      </td>
-      <td align="center" width="16.66%">
-        <img src="https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white" alt="iOS">
-        <br><b>iOS 17+</b>
-      </td>
-      <td align="center" width="16.66%">
-        <img src="https://img.shields.io/badge/Swift-FA7343?style=for-the-badge&logo=swift&logoColor=white" alt="Swift">
-        <br><b>Swift 5.9+</b>
-      </td>
-      <td align="center" width="16.66%">
-        <img src="https://img.shields.io/badge/Xcode-147EFB?style=for-the-badge&logo=xcode&logoColor=white" alt="Xcode">
-        <br><b>Xcode 16+</b>
-      </td>
-      <td align="center" width="16.66%">
-        <img src="https://img.shields.io/badge/MVVM-4CAF50?style=for-the-badge&logo=architecture&logoColor=white" alt="MVVM">
-        <br><b>MVVM</b>
-      </td>
-    </tr>
-  </table>
+<div align="center" style="background-color: #2d3748; padding: 20px; border-radius: 10px; margin: 20px 0;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+    <img src="https://img.shields.io/badge/SwiftUI-000000?style=for-the-badge&logo=swift&logoColor=white" alt="SwiftUI">
+    <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase">
+    <img src="https://img.shields.io/badge/iOS_17+-000000?style=for-the-badge&logo=ios&logoColor=white" alt="iOS">
+    <img src="https://img.shields.io/badge/Swift_5.9+-FA7343?style=for-the-badge&logo=swift&logoColor=white" alt="Swift">
+    <img src="https://img.shields.io/badge/Xcode_16+-147EFB?style=for-the-badge&logo=xcode&logoColor=white" alt="Xcode">
+    <img src="https://img.shields.io/badge/MVVM-4CAF50?style=for-the-badge&logo=architecture&logoColor=white" alt="MVVM">
+  </div>
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 10px;">
+    <img src="https://img.shields.io/badge/Observation-FF6B6B?style=for-the-badge&logo=apple&logoColor=white" alt="Observation Framework">
+    <img src="https://img.shields.io/badge/Async%2FAwait-4ECDC4?style=for-the-badge&logo=swift&logoColor=white" alt="Async/Await">
+    <img src="https://img.shields.io/badge/PhotosPicker-45B7D1?style=for-the-badge&logo=apple&logoColor=white" alt="PhotosPicker">
+    <img src="https://img.shields.io/badge/NavigationStack-9B59B6?style=for-the-badge&logo=apple&logoColor=white" alt="NavigationStack">
+  </div>
 </div>
 
 **Core Technologies:**
