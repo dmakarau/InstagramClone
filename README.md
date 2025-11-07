@@ -1,8 +1,50 @@
 # Instagram Clone - SwiftUI
 
-A comprehensive iOS Instagram clone built with SwiftUI to explore modern iOS development, networking, Firebase integration, and contemporary app architecture patterns.
+A comprehensive iOS Instagram clone built with SwiftUI. This project explores modern iOS development patterns, Firebase integration, and contemporary app architecture while building a fully functional social media app.
 
-## 📱 App Screenshots
+## Technologies & Frameworks
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="https://img.shields.io/badge/SwiftUI-000000?style=for-the-badge&logo=swift&logoColor=white" alt="SwiftUI">
+        <br><b>SwiftUI</b>
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase">
+        <br><b>Firebase</b>
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white" alt="iOS">
+        <br><b>iOS 17+</b>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Swift-FA7343?style=for-the-badge&logo=swift&logoColor=white" alt="Swift">
+        <br><b>Swift 5.9+</b>
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Xcode-147EFB?style=for-the-badge&logo=xcode&logoColor=white" alt="Xcode">
+        <br><b>Xcode 16+</b>
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/MVVM-4CAF50?style=for-the-badge&logo=architecture&logoColor=white" alt="MVVM">
+        <br><b>MVVM</b>
+      </td>
+    </tr>
+  </table>
+</div>
+
+**Core Technologies:**
+- **SwiftUI** - Declarative UI framework with iOS 17+ Observable architecture
+- **Firebase** - Authentication, Firestore database, and Storage (SDK 12.1.0+)
+- **Swift Concurrency** - Async/await patterns with MainActor
+- **Observation Framework** - Modern reactive programming (replaces Combine)
+- **PhotosPicker** - Native photo selection for iOS
+
+## App Screenshots
 
 <div align="center">
   <table>
@@ -29,77 +71,57 @@ A comprehensive iOS Instagram clone built with SwiftUI to explore modern iOS dev
   </table>
 </div>
 
-## 🎯 Project Overview
+## Project Overview
 
-This project serves as a hands-on exploration of:
-- **SwiftUI Framework**: Modern declarative UI development for iOS 18.5+
-- **Firebase Integration**: Authentication, Firestore database, and cloud storage
-- **Networking**: Async/await patterns and real-time data synchronization
-- **iOS Architecture**: MVVM pattern with modern Observation framework
-- **Modern iOS Features**: PhotosPicker, NavigationStack, and iOS 17+ APIs
+This Instagram clone demonstrates modern iOS development through practical implementation. The app includes all the core features you'd expect from a social media platform - user authentication, real-time feeds, commenting, notifications, and user relationships.
 
-## 🏗 Architecture & Design Patterns
+The project focuses on:
+- SwiftUI Framework for modern declarative UI development
+- Firebase Integration for authentication, database, and cloud storage
+- Real-time data synchronization using async/await patterns
+- MVVM architecture with the new Observation framework
+- Modern iOS features like PhotosPicker and NavigationStack
 
-### **SwiftUI + MVVM Architecture**
-- **View Layer**: SwiftUI views with declarative UI components using `@State` and `@Bindable`
-- **ViewModel Layer**: `@Observable` classes using iOS 17+ Observation framework (no Combine)
-- **Service Layer**: Singleton `@Observable` services for Firebase authentication, user management, and data operations
-- **Model Layer**: Codable data models with Firebase integration
+## Architecture & Design Patterns
 
-### **Key Technologies**
-- **SwiftUI**: Declarative UI framework with iOS 18.5+ features
-- **Firebase SDK 12.1.0**: Authentication, Firestore, and Storage
-- **Observation Framework**: iOS 17+ `@Observable` macro for reactive data binding (replaces Combine)
-- **PhotosPicker**: Native iOS photo selection
-- **Async/Await**: Modern Swift concurrency patterns with `@MainActor`
+The app follows a clean MVVM architecture using SwiftUI and the new iOS 17+ Observation framework. Here's how it's structured:
 
-## 🚀 Features Implemented
+**SwiftUI + MVVM Architecture**
+- View Layer: SwiftUI views with declarative UI components using State and Bindable
+- ViewModel Layer: Observable classes using iOS 17+ Observation framework (no Combine needed)
+- Service Layer: Singleton Observable services for Firebase operations and data management
+- Model Layer: Codable data models that work seamlessly with Firebase
 
-### **✅ Authentication System**
-- Complete email/password registration and login flow
-- Firebase Authentication integration with real-time session management
-- Multi-step registration process (email → username → password → completion)
-- Secure user data storage in Firestore with proper error handling
-- Facebook login integration option
-- "Forgot Password" functionality
+**Technology Stack**
+- SwiftUI for the entire user interface
+- Firebase SDK 12.1.0 for backend services (Auth, Firestore, Storage)
+- iOS 17+ Observation framework for reactive data binding
+- PhotosPicker for native photo selection
+- Async/Await for modern Swift concurrency
 
-### **✅ User Management & Profiles**
-- Complete user profile system with real-time stats (posts, followers, following)
-- **Follow/Unfollow functionality** with Firebase integration and optimistic UI updates
-- **User relationship tracking** via dedicated Firebase collections (following/followers)
-- **Interactive user lists** for viewing followers, following, and other user contexts
-- Profile image upload and management via Firebase Storage
-- Edit profile functionality with real-time updates
-- Bio and personal information management
-- User search and discovery with live results
-- Profile grid displaying user's posts
+## What's Implemented
 
-### **✅ Feed & Post System**
-- Fully functional Instagram-style feed with real-time post loading
-- Complete post creation workflow with PhotosPicker integration
-- Post upload to Firebase Storage with automatic image processing
-- Post metadata storage in Firestore with user relationship linking
-- Complete like/unlike functionality with real-time updates and Firebase integration
-- Full comments system with real-time posting and fetching from Firebase
-- Optimistic UI updates for instant comment display with user data pre-population
-- Post display with user profile integration and timestamps
-- LazyVStack implementation for smooth scrolling performance
+This isn't just a basic clone - it's a fully functional social media app with all the features you'd expect:
 
-### **✅ Search & Discovery**
-- Real-time user search functionality
-- Dynamic user list with profile images and usernames
-- Search results with character profiles (Venom, Ironman, Batman, etc.)
-- Instant search filtering and responsive UI
+**User Authentication & Profiles**
+Complete user system with email/password registration, multi-step onboarding, and profile management. Users can upload profile pictures, edit their information, and view detailed statistics about their activity.
 
-### **✅ Navigation & UI Components**
-- Complete 5-tab navigation system (Feed, Search, Upload, Notifications, Profile)
-- Custom reusable components (CircularProfileImageView, UserStatView, PostGridView)
-- iOS 16+ NavigationStack implementation
-- Custom SwiftUI modifiers and styling
-- Responsive design optimized for iPhone and iPad
-- Native iOS design patterns and animations
+**Social Features**
+Full follow/unfollow system with real-time updates. Users can see their followers and following lists, discover new users through search, and view other profiles with complete post grids.
 
-## 📱 App Structure
+**Posts & Feed**
+Instagram-style feed with real-time loading, photo uploading via PhotosPicker, and complete interaction system. Users can like, unlike, and comment on posts with optimistic UI updates for smooth performance.
+
+**Real-time Notifications**
+Comprehensive notification system that alerts users when someone likes their posts, comments, or follows them. Notifications are delivered in real-time with proper Firebase security rules.
+
+**Comments System**
+Full commenting functionality with real-time updates. Comments appear instantly with optimistic UI while syncing to Firebase in the background.
+
+**Search & Discovery**
+Real-time user search with live filtering and responsive results. The app includes some fun character profiles (Marvel characters) for demonstration purposes.
+
+## App Structure
 
 ```
 InstagramCloneTutorial/
@@ -118,6 +140,12 @@ InstagramCloneTutorial/
 │   │   ├── Service/CommentService.swift         # Firebase comment operations
 │   │   ├── View/CommentsView.swift, CommentsCell.swift  # Comment UI components
 │   │   └── ViewModel/CommentViewModel.swift      # Comment data management
+│   ├── Notifications/                           # Real-time notifications system
+│   │   ├── Model/                               # IGNotification.swift, IGNotificationType.swift
+│   │   ├── Service/NotificationsService.swift   # Firebase notification operations
+│   │   ├── Manager/NotificationManager.swift    # Centralized notification management
+│   │   ├── View/                                # NotificationsView.swift, NotificationsCell.swift
+│   │   └── ViewModel/IGNotificationsViewModel.swift  # Notification data management
 │   ├── Search/                                  # User discovery system
 │   │   ├── View/SearchView.swift                # Search interface
 │   │   └── ViewModel/SearchViewModel.swift       # Search functionality
@@ -156,9 +184,9 @@ InstagramCloneTutorial/
 └── Screenshots/                                 # App screenshot collection
 ```
 
-## 🛠 Technical Implementation
+## Technical Implementation
 
-### **Firebase Integration**
+**Firebase Integration**
 ```swift
 // Firebase constants for centralized collection references
 struct FirebaseConstants {
@@ -167,6 +195,11 @@ struct FirebaseConstants {
     static let PostsCollection = Root.collection("posts")
     static let FollowingCollection = Root.collection("following")
     static let FollowersCollection = Root.collection("followers")
+    static let NotificationsCollection = Root.collection("notifications")
+    
+    static func UserNotificationCollection(uid: String) -> CollectionReference {
+        return NotificationsCollection.document(uid).collection("user-notifications")
+    }
 }
 
 // Authentication with async/await
@@ -208,9 +241,37 @@ extension Timestamp {
         return formatter.string(from: self.dateValue(), to: Date()) ?? ""
     }
 }
+
+// Notification system integration
+class NotificationManager {
+    static let shared = NotificationManager()
+    private let service = NotificationsService()
+    
+    func uploadLikeNotification(to uid: String, post: Post) async throws {
+        try await service.uploadNotification(toUid: uid, type: .like, post: post)
+    }
+    
+    func uploadFollowNotification(to uid: String) async throws {
+        try await service.uploadNotification(toUid: uid, type: .follow)
+    }
+    
+    func deleteLikeNotification(notificationOwner: String, post: Post) async {
+        // Automatically removes notification when user unlikes
+    }
+}
+
+// Real-time notification fetching
+func fetchNotifications() async throws -> [IGNotification] {
+    let snapshot = try await FirebaseConstants
+        .UserNotificationCollection(uid: currentUid)
+        .order(by: "timestamp", descending: true)
+        .getDocuments()
+    
+    return snapshot.documents.compactMap({ try? $0.data(as: IGNotification.self)})
+}
 ```
 
-### **Modern SwiftUI Patterns (iOS 17+)**
+**Modern SwiftUI Patterns (iOS 17+)**
 ```swift
 // @Observable replaces ObservableObject + @Published
 @Observable
@@ -244,7 +305,7 @@ struct EditProfileView: View {
 }
 ```
 
-### **Reactive State Management**
+**Reactive State Management**
 ```swift
 // Singleton @Observable services for centralized state
 @Observable
@@ -273,84 +334,60 @@ struct ContentView: View {
 }
 ```
 
-## 🏃‍♂️ Getting Started
+## Getting Started
 
-### **Prerequisites**
-- Xcode 16.4+
-- iOS 18.5+ deployment target
-- Swift 5.0
-- Firebase project setup
+**What you'll need:**
+- Xcode 16.4 or later
+- iOS 18.5+ deployment target  
+- A Firebase project (free to set up)
 
-### **Setup Instructions**
-1. Clone the repository
+**Setup:**
+1. Clone this repository
 2. Open `InstagramCloneTutorial.xcodeproj` in Xcode
-3. Configure Firebase:
-   - Create your own Firebase project at [Firebase Console](https://console.firebase.google.com)
-   - Add your `GoogleService-Info.plist` to the project root (this file is gitignored for security)
-   - Update bundle ID to match your Firebase project
-   - Enable Authentication and Firestore in Firebase Console
-4. Build and run on iOS Simulator or device
+3. Set up Firebase:
+   - Create a new Firebase project at [Firebase Console](https://console.firebase.google.com)
+   - Download your `GoogleService-Info.plist` file and add it to the project root
+   - Update the bundle ID to match your Firebase project
+   - Enable Authentication and Firestore in the Firebase Console
+4. Build and run
 
-> **⚠️ Security Note**: Never commit Firebase configuration files (`GoogleService-Info.plist`) to version control. This project includes these files in `.gitignore` to prevent accidental exposure of API keys and sensitive configuration data.
+> **Important:** The `GoogleService-Info.plist` file is gitignored for security. You'll need to add your own Firebase configuration file.
 
-### **Firebase Configuration**
-The project includes Firebase SDK dependencies:
-- FirebaseAuth (Authentication)
-- FirebaseFirestore (Database)
-- FirebaseStorage (File storage)
+**Firebase Setup:**
+The app uses three Firebase services:
+- FirebaseAuth for user authentication
+- FirebaseFirestore for the database
+- FirebaseStorage for image uploads
 
-## 🎓 Learning Objectives
+## What You'll Learn
 
-This project demonstrates:
-- **Modern iOS Development**: SwiftUI, iOS 17+ `@Observable` macro, and contemporary patterns
-- **Firebase Integration**: Real-time database operations and authentication
-- **Swift Concurrency**: Async/await, `@MainActor`, error handling, and data synchronization
-- **App Architecture**: MVVM with `@Observable` reactive programming (no Combine)
-- **State Management**: `@State`, `@Bindable`, and `@Environment` for data flow
-- **UI/UX Implementation**: Native iOS design patterns and user interactions
+Building this Instagram clone covers a lot of ground in modern iOS development:
 
-## 🔧 Development Status
+- Modern iOS Development with SwiftUI and the new Observable framework
+- Firebase Integration for real-time apps with authentication and database operations  
+- Swift Concurrency using async/await patterns and MainActor for UI updates
+- MVVM Architecture using Observable classes instead of Combine
+- State Management with SwiftUI's State, Bindable, and Environment
+- Real-world UI/UX patterns that feel native to iOS
 
-**✅ Fully Implemented Features:**
-- Complete Firebase Authentication system with multi-step registration
-- User profile management with edit functionality and real-time statistics
-- **Follow/Unfollow system** with Firebase relationship tracking and optimistic UI updates
-- **User relationship management** with dedicated followers/following collections
-- **Interactive user lists** showing followers, following, and other user contexts
-- Real-time user search and discovery with live filtering
-- Full post creation and upload system with Firebase Storage integration
-- Instagram-style feed with real-time post loading and user linking
-- Interactive like/unlike system with optimistic updates and Firebase persistence
-- Complete commenting system with real-time posting, fetching, and optimistic UI updates
-- Profile image upload and management
-- Post grid display on user profiles
-- Native photo selection with PhotosPicker integration
-- Complete tab-based navigation system
-- Modern iOS 17+ `@Observable` architecture (no Combine dependencies)
-- Centralized user state management with singleton `@Observable` services
+## Current Status
 
-**🚧 Advanced Features (Future Enhancements):**
-- Push notifications for user interactions
-- Advanced image filtering and editing tools
-- Stories functionality
-- Direct messaging system
-- Image caching and optimization
-- Offline data synchronization
-- Advanced user interaction analytics
+This is a fully functional Instagram clone with all core features implemented. The app includes user authentication, profiles, posting, commenting, following, real-time notifications, and search functionality. Everything is built using modern iOS patterns and the latest SwiftUI features.
 
-## 📚 Key Learning Resources
+**What's working:**
+Everything! The app is feature-complete with user auth, posts, comments, follows, notifications, and search.
 
-This project explores concepts from:
-- SwiftUI documentation and modern iOS development
-- Firebase iOS SDK integration patterns
-- Modern Swift concurrency and async programming
-- iOS app architecture best practices
-- Real-time data synchronization techniques
+**Future ideas:**
+- Push notifications when the app is closed
+- Stories functionality 
+- Direct messaging
+- Image filters and editing tools
+- Better image caching and performance optimization
 
-## 📖 Course Attribution
+## Learning Resources
 
-This project is developed as part of the **AppStuff Instagram SwiftUI Pro 2.0** course. The implementation follows the course curriculum while exploring advanced SwiftUI concepts, Firebase integration, and modern iOS development practices.
+This project demonstrates concepts from modern iOS development, including SwiftUI patterns, Firebase integration, and Swift concurrency. It's a practical example of building a real-world social media app with contemporary tools and patterns.
 
 ---
 
-*This project is designed for educational purposes to explore SwiftUI, Firebase integration, and modern iOS development patterns.*
+*This project demonstrates modern iOS development patterns and is designed for educational purposes.*
