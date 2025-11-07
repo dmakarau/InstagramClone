@@ -64,3 +64,5 @@ fastlane/test_output
 # Firebase Configuration Files (Security Sensitive)
 GoogleService-Info.plist
 **/GoogleService-Info.plist
+CLAUDE.md
+firestore.rules
