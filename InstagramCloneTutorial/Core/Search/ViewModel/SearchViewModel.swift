@@ -18,6 +18,6 @@ class SearchViewModel {
     }
 
     func fetchAllUsers() async throws {
-        self.users = try await UserService.shared.fetchAllUsers()
+        self.users = try await UserService.fetchAllUsers()
     }
 }

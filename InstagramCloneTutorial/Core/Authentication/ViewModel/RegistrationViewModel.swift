@@ -15,15 +15,13 @@ class RegistrationViewModel {
     var password =  ""
     var error: Error?
     
-    func createUser(with authManager: AuthManager) async -> User? {
+    func createUser(with authManager: AuthManager) async  {
         do {
             let user = try await authManager.createUser(email: email, password: password, username: username)
             reset()
-            return user
         }
         catch {
             self.error = error
-            return nil
         }
     }
     

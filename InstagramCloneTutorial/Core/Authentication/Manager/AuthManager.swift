@@ -14,18 +14,23 @@ import Foundation
 class AuthManager {
     @ObservationIgnored private let service: AuthService
     var userSession: String?
-
     
     init(service: AuthService) {
         self.service = service
+        self.userSession = service.getUserSession()
     }
     
     func login(withEmail email: String, password: String) async throws {
         self.userSession = try await service.login(withEmail: email, password: password)
     }
     
-    func createUser(email: String, password: String, username: String) async throws -> User? {
-        return nil
+    func createUser(email: String, password: String, username: String) async throws {
+        self.userSession = try await service
+            .createUser(
+                email: email,
+                password: password,
+                username: username
+            )
     }
     
     func deleteAccount() async {
@@ -36,8 +41,7 @@ class AuthManager {
     }
     
     func signOut() {
+        service.signOut()
+        userSession = nil
     }
-
-
-
 }

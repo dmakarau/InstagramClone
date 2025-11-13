@@ -16,7 +16,7 @@ class UserListViewModel {
     
     func fetchUsers(forConfig config: UserListConfig) async {
         do {
-            self.users = try await UserService.shared.fetchUsers(forConfig: config)
+            self.users = try await UserService.fetchUsers(forConfig: config)
         } catch {
             print("DEBUG - Failed to fetch users \(error)")
         }

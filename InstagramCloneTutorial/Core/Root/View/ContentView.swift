@@ -9,13 +9,18 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(AuthManager.self) private var authManager
+    @Environment(UserManager.self) private var userManager
     var body: some View {
         Group {
             if authManager.userSession == nil {
                 LoginView()
             } else {
-                Text("Show main interface here")
+                MainTabView()
             }
+        }
+        .task(id: authManager.userSession) {
+            guard authManager.userSession != nil else { return }
+            await userManager.fetchCurrentUser()
         }
     }
 }

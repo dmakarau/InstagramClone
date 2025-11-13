@@ -7,6 +7,7 @@
 
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseCore
 
 struct AuthService {
     
@@ -20,28 +21,35 @@ struct AuthService {
         }
     }
     
-    func createUser(email: String, password: String, username: String) async throws {
+    func createUser(email: String, password: String, username: String) async throws -> String {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
-            await uploadUserDate(uid: result.user.uid, username: username, email: email)
+            return result.user.uid
         } catch {
             print("DEBUG-> Failed to register a user: \(error.localizedDescription)")
+            throw error
         }
-    }
-    
-    func loadUserData() async throws {
-        try await UserService.shared.fetchCurrentUser()
     }
     
     func signOut() {
         try? Auth.auth().signOut()
-        UserService.shared.currentUser = nil
     }
     
-    private func uploadUserDate(uid: String, username: String, email: String) async {
-        let user = User(id: uid, username: username , email: email)
-        UserService.shared.currentUser = user
-        guard let encodedUser = try? Firestore.Encoder().encode(user) else { return }
-        try? await FirebaseConstants.UsersCollection.document(user.id).setData(encodedUser)
+    func getUserSession() -> String? {
+        // Return nil if Firebase isn't configured yet to prevent crash
+        guard FirebaseApp.app() != nil else { return nil }
+        return Auth.auth().currentUser?.uid
     }
+    
+    func checkForExistingSession() -> String? {
+        // This method should be called AFTER Firebase is configured
+        return Auth.auth().currentUser?.uid
+    }
+    
+//    private func uploadUserDate(uid: String, username: String, email: String) async {
+//        let user = User(id: uid, username: username , email: email)
+//        UserService.shared.currentUser = user
+//        guard let encodedUser = try? Firestore.Encoder().encode(user) else { return }
+//        try? await FirebaseConstants.UsersCollection.document(user.id).setData(encodedUser)
+//    }
 }
