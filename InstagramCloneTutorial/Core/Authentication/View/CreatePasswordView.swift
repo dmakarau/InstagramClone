@@ -40,6 +40,8 @@ struct CreatePasswordView: View {
                     .foregroundStyle(.white)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
             }
+            .disabled(!formIsValid)
+            .opacity(formIsValid ? 1 : 0.5)
             .padding(.vertical)
             
             Spacer()
@@ -53,6 +55,12 @@ struct CreatePasswordView: View {
                     }
             }
         }
+    }
+}
+
+private extension CreatePasswordView {
+    var formIsValid: Bool {
+        return viewModel.password.isValidPassword()
     }
 }
 

@@ -41,6 +41,8 @@ struct CreateUsernameView: View {
                     .foregroundStyle(.white)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
             }
+            .disabled(!formIsValid)
+            .opacity(formIsValid ? 1 : 0.5)
             .padding(.vertical)
             
             Spacer()
@@ -54,6 +56,12 @@ struct CreateUsernameView: View {
                     }
             }
         }
+    }
+}
+
+private extension CreateUsernameView {
+    var formIsValid: Bool {
+        return viewModel.username.isValidUsername()
     }
 }
 

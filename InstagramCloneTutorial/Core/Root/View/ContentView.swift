@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @Environment(AuthManager.self) private var authManager
     @Environment(UserManager.self) private var userManager
+    
     var body: some View {
         Group {
             if authManager.userSession == nil {

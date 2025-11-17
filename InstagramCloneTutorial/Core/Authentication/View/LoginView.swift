@@ -10,7 +10,7 @@ import SwiftUI
 struct LoginView: View {
     @Environment(AuthManager.self) private var authManager
     @State var loginViewModel = LoginViewModel()
-    @State var registrationViewModel = RegistrationViewModel()
+    @State private var registrationViewModel = RegistrationViewModel()
     var body: some View {
         @Bindable var loginViewModel = loginViewModel
         NavigationStack {
@@ -23,7 +23,6 @@ struct LoginView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 220, height: 100)
-
 
                 // text fields
                 VStack {
@@ -57,6 +56,8 @@ struct LoginView: View {
                         .foregroundStyle(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
+                .disabled(!formIsValid)
+                .opacity(formIsValid ? 1 : 0.5)
                 .padding(.vertical)
                 
                 HStack {
@@ -96,7 +97,6 @@ struct LoginView: View {
                 NavigationLink {
                     AddEmailView()
                         .navigationBarBackButtonHidden()
-                        .environment(registrationViewModel)
                 } label: {
                     HStack (spacing: 3) {
                         Text("Don't have an account?")
@@ -108,6 +108,14 @@ struct LoginView: View {
                 .padding(.vertical, 16)
             }
         }
+        .environment(registrationViewModel) // ← Provide to entire NavigationStack
+    }
+}
+
+private extension LoginView {
+    var formIsValid: Bool {
+        return loginViewModel.email.isEmailValid() &&
+        loginViewModel.password.isValidPassword()
     }
 }
 

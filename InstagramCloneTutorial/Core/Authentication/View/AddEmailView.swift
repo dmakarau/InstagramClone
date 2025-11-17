@@ -27,6 +27,7 @@ struct AddEmailView: View {
             TextField("Enter your email", text: $viewModel.email)
                 .textInputAutocapitalization(.none)
                 .modifier(IGTextFieldModifier())
+              
             
             NavigationLink {
                 CreateUsernameView()
@@ -39,7 +40,10 @@ struct AddEmailView: View {
                     .background(Color(.systemBlue))
                     .foregroundStyle(.white)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
+                    
             }
+            .disabled(!formIsValid)
+            .opacity(formIsValid ? 1 : 0.5)
             .padding(.vertical)
             
             Spacer()
@@ -54,6 +58,12 @@ struct AddEmailView: View {
                 
             }
         }
+    }
+}
+
+private extension AddEmailView {
+    var formIsValid: Bool {
+        return viewModel.email.isEmailValid()
     }
 }
 
