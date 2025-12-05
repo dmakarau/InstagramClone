@@ -10,6 +10,7 @@ import SwiftUI
 struct CreatePasswordView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(RegistrationViewModel.self) private var viewModel
+    @Environment(AuthenticationRouter.self) private var router
 
     var body: some View {
         @Bindable var viewModel = viewModel
@@ -28,9 +29,8 @@ struct CreatePasswordView: View {
                 .modifier(IGTextFieldModifier())
                 .padding(.top)
             
-            NavigationLink {
-                CompleteSighUpView()
-                    .navigationBarBackButtonHidden()
+            Button {
+                router.navigate()
             } label: {
                 Text("Next")
                     .font(.subheadline)

@@ -10,7 +10,8 @@ import SwiftUI
 struct CreateUsernameView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(RegistrationViewModel.self) private var viewModel
-
+    @Environment(AuthenticationRouter.self) private var router
+    
     var body: some View {
         @Bindable var viewModel = viewModel
         VStack {
@@ -18,20 +19,19 @@ struct CreateUsernameView: View {
                 .font(.title2)
                 .fontWeight(.bold)
                 .padding(.top)
-
+            
             Text("You'll use this email to sign in to your account")
                 .font(.footnote)
                 .foregroundStyle(.gray)
                 .multilineTextAlignment(.center)
-
+            
             TextField("Username", text: $viewModel.username)
                 .textInputAutocapitalization(.none)
                 .modifier(IGTextFieldModifier())
                 .padding(.top)
             
-            NavigationLink {
-                CreatePasswordView()
-                    .navigationBarBackButtonHidden()
+            Button {
+                router.navigate()
             } label: {
                 Text("Next")
                     .font(.subheadline)

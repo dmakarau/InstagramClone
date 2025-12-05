@@ -11,27 +11,28 @@ struct LoginView: View {
     @Environment(AuthManager.self) private var authManager
     @State var loginViewModel = LoginViewModel()
     @State private var registrationViewModel = RegistrationViewModel()
+    @State private var router = AuthenticationRouter()
     var body: some View {
         @Bindable var loginViewModel = loginViewModel
-        NavigationStack {
+        NavigationStack(path: $router.navigationPath) {
             VStack {
-
+                
                 Spacer()
-
+                
                 // Logo image
                 Image("instagram")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 220, height: 100)
-
+                
                 // text fields
                 VStack {
                     TextField("Enter your email", text: $loginViewModel.email)
                         .textInputAutocapitalization(.none)
                         .modifier(IGTextFieldModifier())
-
+                    
                     SecureField("Enter your password", text: $loginViewModel.password)
-                        .modifier(IGTextFieldModifier()) 
+                        .modifier(IGTextFieldModifier())
                 }
                 
                 Button {
@@ -94,9 +95,8 @@ struct LoginView: View {
                 
                 Divider()
                 
-                NavigationLink {
-                    AddEmailView()
-                        .navigationBarBackButtonHidden()
+                Button {
+                    router.startRegistration()
                 } label: {
                     HStack (spacing: 3) {
                         Text("Don't have an account?")
@@ -106,6 +106,25 @@ struct LoginView: View {
                     .font(.footnote)
                 }
                 .padding(.vertical, 16)
+            }
+            .alert("Oops!", isPresented: $loginViewModel.showError, actions: {}) {
+                Text(loginViewModel.error?.localizedDescription ?? "Unknown error")
+            }
+            .navigationDestination(for: RegistrationSteps.self) { step in
+                Group {
+                    switch step {
+                    case .email:
+                        AddEmailView()
+                    case .username:
+                        CreateUsernameView()
+                    case .password:
+                        CreatePasswordView()
+                    case .completion:
+                        CompleteSighUpView()
+                    }
+                }
+                .navigationBarBackButtonHidden()
+                .environment(router)
             }
         }
         .environment(registrationViewModel) // ← Provide to entire NavigationStack

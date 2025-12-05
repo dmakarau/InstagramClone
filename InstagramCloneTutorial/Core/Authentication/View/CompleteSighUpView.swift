@@ -13,6 +13,7 @@ struct CompleteSighUpView: View {
     @Environment(RegistrationViewModel.self) private var viewModel
 
     var body: some View {
+        @Bindable var viewModel = viewModel
         VStack {
             Spacer()
             Text("Welcome to Instagram, \(viewModel.username)")
@@ -42,6 +43,9 @@ struct CompleteSighUpView: View {
             .padding(.vertical)
             
             Spacer()
+        }
+        .alert("Oops!", isPresented: $viewModel.showError, actions: {}) {
+            Text(viewModel.error?.localizedDescription ?? "Unknown error")
         }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
