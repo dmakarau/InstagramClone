@@ -9,8 +9,10 @@ import SwiftUI
 
 struct CreateUsernameView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(AuthManager.self) private var authManager
     @Environment(RegistrationViewModel.self) private var viewModel
-
+    @Environment(AuthenticationRouter.self) private var router
+    
     var body: some View {
         @Bindable var viewModel = viewModel
         VStack {
@@ -18,20 +20,19 @@ struct CreateUsernameView: View {
                 .font(.title2)
                 .fontWeight(.bold)
                 .padding(.top)
-
-            Text("You'll use this email to sign in to your account")
+            
+            Text("Your username. You can always change this later.")
                 .font(.footnote)
                 .foregroundStyle(.gray)
                 .multilineTextAlignment(.center)
-
+            
             TextField("Username", text: $viewModel.username)
                 .textInputAutocapitalization(.none)
                 .modifier(IGTextFieldModifier())
                 .padding(.top)
             
-            NavigationLink {
-                CreatePasswordView()
-                    .navigationBarBackButtonHidden()
+            Button {
+                onNext()
             } label: {
                 Text("Next")
                     .font(.subheadline)
@@ -41,6 +42,8 @@ struct CreateUsernameView: View {
                     .foregroundStyle(.white)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
             }
+            .disabled(!formIsValid)
+            .opacity(formIsValid ? 1 : 0.5)
             .padding(.vertical)
             
             Spacer()
@@ -52,6 +55,24 @@ struct CreateUsernameView: View {
                     .onTapGesture {
                         dismiss()
                     }
+            }
+        }
+    }
+}
+
+private extension CreateUsernameView {
+    var formIsValid: Bool {
+        return viewModel.username.isValidUsername()
+    }
+    
+    func onNext() {
+        Task {
+            let userIsValide = try await authManager.validateUsername(viewModel.username)
+            
+            if userIsValide {
+                router.navigate()
+            } else {
+                print("DEBUG: Validation failed")
             }
         }
     }

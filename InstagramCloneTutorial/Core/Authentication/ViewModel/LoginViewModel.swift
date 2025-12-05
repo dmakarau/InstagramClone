@@ -12,8 +12,19 @@ import Observation
 class LoginViewModel {
     var email: String = ""
     var password: String = ""
+    var showError = false
+    var error: AuthenticationError? {
+        didSet { showError = error != nil }
+    }
     
-    func login() async throws {
-       try await AuthService.shared.login(withEmail: email, password: password)
+    func login(with authManager: AuthManager) async {
+        do {
+            try await authManager.login(withEmail: email, password: password)
+        } catch let error as AuthenticationError {
+            self.error = error
+        }
+        catch {
+            self.error = .unknownError
+        }
     }
 }

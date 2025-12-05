@@ -64,5 +64,8 @@ fastlane/test_output
 # Firebase Configuration Files (Security Sensitive)
 GoogleService-Info.plist
 **/GoogleService-Info.plist
-CLAUDE.md
 firestore.rules
+
+# Claude AI Configuration (Do not commit until explicitly requested)
+CLAUDE.md
+.claude/

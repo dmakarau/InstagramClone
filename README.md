@@ -83,6 +83,42 @@ The app follows a clean MVVM architecture using SwiftUI and the new iOS 17+ Obse
 - PhotosPicker for native photo selection
 - Async/Await for modern Swift concurrency
 
+**Registration Flow (Router-Driven)**
+- Uses `AuthenticationRouter` (`@Observable`) to centralize multi-step onboarding.
+- `RegistrationSteps` (`Identifiable`, `Hashable`) drives `NavigationStack(path:)` destinations.
+- Views call `router.startRegistration()` to begin and `router.navigate()` to advance steps.
+- `LoginView` provides `RegistrationViewModel` and `AuthenticationRouter` via environment and uses `navigationDestination(for:)`.
+- Real-time validation: `AddEmailView` and `CreateUsernameView` validate uniqueness via `AuthManager.validateEmail()` and `validateUsername()` before advancing to next step.
+
+**Error Handling**
+- Custom `AuthenticationError` enum with Firebase error code mapping (17004-17026)
+- User-friendly localized error messages for all authentication failures
+- ViewModels use `showError` Boolean and `error: AuthenticationError?` with `didSet` observer
+- Views present alerts automatically using `.alert("Oops!", isPresented: $viewModel.showError)`
+
+Example:
+```swift
+@State private var router = AuthenticationRouter()
+
+NavigationStack(path: $router.navigationPath) {
+    // ... Login UI ...
+}
+.navigationDestination(for: RegistrationSteps.self) { step in
+    switch step {
+    case .email: AddEmailView()
+    case .username: CreateUsernameView()
+    case .password: CreatePasswordView()
+    case .completion: CompleteSighUpView()
+    }
+}
+
+// Start registration from LoginView
+Button("Sign up") { router.startRegistration() }
+
+// Advance step inside registration views
+Button("Next") { router.navigate() }
+```
+
 ## What's Implemented
 
 This isn't just a basic clone - it's a fully functional social media app with all the features you'd expect:
@@ -113,9 +149,13 @@ InstagramCloneTutorial/
 │   └── InstagramCloneTutorialApp.swift           # App entry point with Firebase configuration
 ├── Core/
 │   ├── Authentication/                           # Complete authentication system
+│   │   ├── Error/AuthenticationError.swift       # Custom error enum with Firebase error code mapping
 │   │   ├── Service/AuthService.swift             # Firebase Auth integration
 │   │   ├── ViewModel/                            # LoginViewModel, RegistrationViewModel
 │   │   └── View/                                # Login, Registration flow screens
+│   ├── Routing/                                  # Registration flow routing
+│   │   ├── AuthenticationRouter.swift            # Observable router with navigationPath
+│   │   └── RegistrationSteps.swift               # Step enum driving NavigationStack
 │   ├── Feed/                                    # Main timeline functionality
 │   │   ├── View/FeedView.swift, FeedCell.swift  # Feed UI components
 │   │   └── ViewModel/FeedViewModel.swift         # Feed data management
@@ -186,10 +226,79 @@ struct FirebaseConstants {
     }
 }
 
-// Authentication with async/await
+// Authentication with async/await and custom error handling
 func createUser(email: String, password: String, username: String) async throws {
-    let result = try await Auth.auth().createUser(withEmail: email, password: password)
-    await uploadUserData(uid: result.user.uid, username: username, email: email)
+    do {
+        let result = try await Auth.auth().createUser(withEmail: email, password: password)
+        await uploadUserData(uid: result.user.uid, username: username, email: email)
+    } catch {
+        let authErrorCode = AuthErrorCode(rawValue: (error as NSError).code)?.rawValue ?? -1
+        throw AuthenticationError(rawValue: authErrorCode)
+    }
+}
+
+// Custom AuthenticationError enum
+enum AuthenticationError: Error {
+    case userDisabled
+    case emailAlreadyInUse
+    case invalidEmail
+    case wrongPassword
+    case userNotFound
+    case networkError
+    case credentialAlreadyInUse
+    case weakPassword
+    case unknownError
+    case invalidCredential
+    case tooManyRequests
+    
+    init(rawValue: Int) {
+        switch rawValue {
+        case 17004: self = .invalidCredential  // Modern Firebase error
+        case 17005: self = .userDisabled
+        case 17007: self = .emailAlreadyInUse
+        case 17008: self = .invalidEmail
+        case 17009: self = .wrongPassword
+        case 17010: self = .tooManyRequests
+        case 17011: self = .userNotFound
+        case 17020: self = .networkError
+        case 17025: self = .credentialAlreadyInUse
+        case 17026: self = .weakPassword
+        default: self = .unknownError
+        }
+    }
+}
+
+// ViewModel error handling pattern
+@Observable
+class LoginViewModel {
+    var email = ""
+    var password = ""
+    var showError = false
+    var error: AuthenticationError? {
+        didSet { showError = error != nil }
+    }
+    
+    func login(with authManager: AuthManager) async {
+        do {
+            try await authManager.login(withEmail: email, password: password)
+        } catch let error as AuthenticationError {
+            self.error = error
+        } catch {
+            self.error = .unknownError
+        }
+    }
+}
+
+// View presents error alerts automatically
+struct LoginView: View {
+    @State var loginViewModel = LoginViewModel()
+    
+    var body: some View {
+        // ... UI components ...
+        .alert("Oops!", isPresented: $loginViewModel.showError) {
+            Text(loginViewModel.error?.localizedDescription ?? "Unknown error")
+        }
+    }
 }
 
 // Firestore data operations with centralized constants

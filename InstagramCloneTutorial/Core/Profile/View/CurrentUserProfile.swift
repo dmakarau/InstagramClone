@@ -8,20 +8,23 @@
 import SwiftUI
 
 struct CurrentUserProfile: View {
-    let user: User
+    @Environment(AuthManager.self) private var authManager
+    @Environment(UserManager.self) private var userManager
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 // header
-                ProfileHeaderView(user: user)
-                // post grid view
-                PostGridView(user: user)
+                if let user = userManager.currentUser {
+                    ProfileHeaderView(user: user)
+                    // post grid view
+                    PostGridView(user: user)
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        AuthService.shared.signOut()
+                        authManager.signOut()
                     } label: {
                         Image(systemName: "line.3.horizontal")
                             .foregroundStyle(.black)
@@ -33,5 +36,5 @@ struct CurrentUserProfile: View {
 }
 
 #Preview {
-    CurrentUserProfile(user: User.MOCK_USERS[3])
+    CurrentUserProfile()
 }

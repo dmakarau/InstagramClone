@@ -16,7 +16,7 @@ class IGNotificationsViewModel {
     
     init(service: NotificationsService) {
         self.service = service
-        self.currentUser = UserService.shared.currentUser
+        self.currentUser = nil
         Task { await fetchNotifications() }
     }
     
@@ -35,7 +35,7 @@ class IGNotificationsViewModel {
         for i in 0 ..< notifications.count {
             var notification = notifications[i]
             
-            notification.user = try await UserService.shared.fetchUser(withUid: notification.notificationSenderUid)
+            notification.user = try await UserService.fetchUser(withUid: notification.notificationSenderUid)
             if let postId = notification.postId {
                 notification.post = try await PostService.fetchPost(withId: postId)
                 notification.post?.user = self.currentUser
