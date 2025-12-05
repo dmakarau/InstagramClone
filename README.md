@@ -88,6 +88,7 @@ The app follows a clean MVVM architecture using SwiftUI and the new iOS 17+ Obse
 - `RegistrationSteps` (`Identifiable`, `Hashable`) drives `NavigationStack(path:)` destinations.
 - Views call `router.startRegistration()` to begin and `router.navigate()` to advance steps.
 - `LoginView` provides `RegistrationViewModel` and `AuthenticationRouter` via environment and uses `navigationDestination(for:)`.
+- Real-time validation: `AddEmailView` and `CreateUsernameView` validate uniqueness via `AuthManager.validateEmail()` and `validateUsername()` before advancing to next step.
 
 **Error Handling**
 - Custom `AuthenticationError` enum with Firebase error code mapping (17004-17026)

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CreateUsernameView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(AuthManager.self) private var authManager
     @Environment(RegistrationViewModel.self) private var viewModel
     @Environment(AuthenticationRouter.self) private var router
     
@@ -20,7 +21,7 @@ struct CreateUsernameView: View {
                 .fontWeight(.bold)
                 .padding(.top)
             
-            Text("You'll use this email to sign in to your account")
+            Text("Your username. You can always change this later.")
                 .font(.footnote)
                 .foregroundStyle(.gray)
                 .multilineTextAlignment(.center)
@@ -31,7 +32,7 @@ struct CreateUsernameView: View {
                 .padding(.top)
             
             Button {
-                router.navigate()
+                onNext()
             } label: {
                 Text("Next")
                     .font(.subheadline)
@@ -62,6 +63,18 @@ struct CreateUsernameView: View {
 private extension CreateUsernameView {
     var formIsValid: Bool {
         return viewModel.username.isValidUsername()
+    }
+    
+    func onNext() {
+        Task {
+            let userIsValide = try await authManager.validateUsername(viewModel.username)
+            
+            if userIsValide {
+                router.navigate()
+            } else {
+                print("DEBUG: Validation failed")
+            }
+        }
     }
 }
 

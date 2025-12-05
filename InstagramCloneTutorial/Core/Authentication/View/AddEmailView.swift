@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddEmailView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(AuthManager.self) private var authManager
     @Environment(RegistrationViewModel.self) private var viewModel
     @Environment(AuthenticationRouter.self) private var router
     
@@ -31,7 +32,7 @@ struct AddEmailView: View {
             
             
             Button {
-                router.navigate()
+                onNext()
             } label: {
                 Text("Next")
                     .font(.subheadline)
@@ -65,6 +66,18 @@ struct AddEmailView: View {
 private extension AddEmailView {
     var formIsValid: Bool {
         return viewModel.email.isEmailValid()
+    }
+    
+    func onNext() {
+        Task {
+            let emailIsValide = try await authManager.validateEmail(viewModel.email)
+            
+            if emailIsValide {
+                router.navigate()
+            } else {
+                print("DEBUG: Validation failed")
+            }
+        }
     }
 }
 

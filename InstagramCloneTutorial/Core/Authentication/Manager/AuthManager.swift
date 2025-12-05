@@ -33,6 +33,14 @@ class AuthManager {
             )
     }
     
+    func validateEmail(_ email: String) async throws -> Bool {
+        return try await service.validateEmail(email)
+    }
+    
+    func validateUsername(_ username: String) async throws -> Bool {
+        return try await service.validateUsername(username)
+    }
+    
     func deleteAccount() async {
         
     }
