@@ -9,7 +9,29 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseCore
 
-struct AuthService {
+protocol AuthServiceProtocol {
+    func createUser(withEmail email: String, password: String, username: String) async throws -> String
+    func deleteAccount() async
+    func getUserSession() -> String?
+    func login(withEmail email: String, password: String) async throws -> String
+    func signOut()
+    func validateEmail(_ email: String) async throws -> Bool
+    func validateUsername(_ username: String) async throws -> Bool
+}
+
+
+
+struct AuthService: AuthServiceProtocol {
+    
+    func createUser(withEmail email: String, password: String, username: String) async throws -> String {
+        do {
+            let result = try await Auth.auth().createUser(withEmail: email, password: password)
+            return result.user.uid
+        } catch {
+            let authErrorCode = AuthErrorCode(rawValue: (error as NSError).code)?.rawValue ?? -1
+            throw AuthenticationError(rawValue: authErrorCode)
+        }
+    }
     
     func login(withEmail email: String, password: String) async throws -> String {
         do {
@@ -21,14 +43,8 @@ struct AuthService {
         }
     }
     
-    func createUser(email: String, password: String, username: String) async throws -> String {
-        do {
-            let result = try await Auth.auth().createUser(withEmail: email, password: password)
-            return result.user.uid
-        } catch {
-            let authErrorCode = AuthErrorCode(rawValue: (error as NSError).code)?.rawValue ?? -1
-            throw AuthenticationError(rawValue: authErrorCode)
-        }
+    func deleteAccount() async {
+        
     }
     
     func validateEmail(_ email: String) async throws -> Bool {
@@ -38,7 +54,7 @@ struct AuthService {
         return snapshot.documents.isEmpty
     }
     
-    func validateUsername(_ username: String) async throws -> Bool {
+    func validateUsername(_ username: String) async throws   -> Bool {
         let snapshot = try await FirebaseConstants.UsersCollection
             .whereField("username", isEqualTo: username)
             .getDocuments()

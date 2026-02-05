@@ -9,7 +9,11 @@ import Foundation
 import Firebase
 import FirebaseAuth
 
-class UserService {
+protocol UserServiceProtocol {
+    func fetchCurrentUser() async throws -> User?
+}
+
+class UserService: UserServiceProtocol {
 
     static func fetchUser(withUid uid: String) async throws -> User {
         let snapshot = try await FirebaseConstants.UsersCollection.document(uid).getDocument()
@@ -64,8 +68,9 @@ class UserService {
     
     private static func fetchUsers(_ snapshot: QuerySnapshot) async throws -> [User] {
         var users = [User]()
+        
         for doc in snapshot.documents {
-            users.append(try await UserService.fetchUser(withUid: doc.documentID))
+            users.append(try await fetchUser(withUid: doc.documentID))
         }
         return users
     }

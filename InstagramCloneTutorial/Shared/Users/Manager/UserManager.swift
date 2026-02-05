@@ -10,9 +10,9 @@ import Foundation
 @Observable
 class UserManager {
     var currentUser: User?
-    @ObservationIgnored private let service: UserService
+    @ObservationIgnored private let service: UserServiceProtocol
     
-    init(userService: UserService) {
+    init(userService: UserServiceProtocol) {
         self.service = userService
     }
     

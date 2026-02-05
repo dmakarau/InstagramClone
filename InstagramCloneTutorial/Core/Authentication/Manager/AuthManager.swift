@@ -12,10 +12,10 @@ import Foundation
  */
 @Observable
 class AuthManager {
-    @ObservationIgnored private let service: AuthService
+    @ObservationIgnored private let service: AuthServiceProtocol
     var userSession: String?
     
-    init(service: AuthService) {
+    init(service: AuthServiceProtocol) {
         self.service = service
         self.userSession = service.getUserSession()
     }
@@ -27,7 +27,7 @@ class AuthManager {
     func createUser(email: String, password: String, username: String) async throws {
         self.userSession = try await service
             .createUser(
-                email: email,
+                withEmail: email,
                 password: password,
                 username: username
             )
